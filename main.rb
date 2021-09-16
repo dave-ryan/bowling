@@ -1,5 +1,5 @@
-require "./commands"
-require "./dvalues"
+require_relative "commands"
+require_relative "dvalues"
 require "tty-table"
 system "clear"
 puts "Welcome to my bowling score program!"
@@ -10,6 +10,7 @@ score_screen()
 
 while $frame <= 10
   if $quitter == 1
+    system "clear"
     break
   end
   knockdown_pins()

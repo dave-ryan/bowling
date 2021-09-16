@@ -7,8 +7,8 @@ def wrong
   `say "error"`
 end
 
-def correct_input(n)
-  n.to_i.to_s == n && n.to_i <= 10 && n.to_i >= 0 && $remaining_pins - n.to_i >= 0
+def correct_input(pins)
+  pins.to_i.to_s == pins && pins.to_i <= 10 && pins.to_i >= 0 && $remaining_pins - pins.to_i >= 0
 end
 
 def strike_check(totaller)
@@ -121,6 +121,16 @@ def special_names
   end
 end
 
+def score_loop(pins)
+  $pins = pins
+  $remaining_pins -= $pins
+  $score_counter[$frame][$current_bowl - 1] = $pins
+  spare_check()
+  special_names()
+  $current_bowl += 1
+  score_screen()
+end
+
 def knockdown_pins
   $current_bowl = 1
   $remaining_pins = 10
@@ -139,17 +149,15 @@ def knockdown_pins
         $current_bowl += 1
         break
       end
+    elsif $user_input.downcase == "x"
+      score_loop(10)
+    elsif $user_input == "/" && $remaining_pins != 10
+      score_loop($remaining_pins)
     elsif $user_input.downcase == "q"
       $quitter = 1
       break
     elsif correct_input($user_input)
-      $pins = $user_input.to_i
-      $remaining_pins -= $pins
-      $score_counter[$frame][$current_bowl - 1] = $pins
-      spare_check()
-      special_names()
-      $current_bowl += 1
-      score_screen()
+      score_loop($user_input.to_i)
     else
       wrong()
     end

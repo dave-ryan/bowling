@@ -1,6 +1,6 @@
 require "tty-table"
 $quitter = 0
-$frame = 8
+$frame = 1
 $spare = 0
 $strike = 0
 $current_bowl = 1
@@ -13,23 +13,8 @@ $user_input = ""
 $pin_report = ""
 ##
 ##
-$score_counter = [""]
-9.times do
-  $score_counter << [0, 0]
-end
-$score_counter << [0, 0, 0]
-##
-##
-$score_totaller = ["Score:"]
-10.times do
-  $score_totaller << ""
-end
-$framies = ["       "]
-tempframes = 1
-10.times do
-  $framies << "Frame #{tempframes}"
-  tempframes += 1
-end
-##
+$score_counter = ["", [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0, 0]]
+$score_totaller = ["Score:", "", "", "", "", "", "", "", "", "", ""]
+$framies = ["", "Frame 1", "Frame 2", "Frame 3", "Frame 4", "Frame 5", "Frame 6", "Frame 7", "Frame 8", "Frame 9", "Frame 10"]
 ##
 $table = TTY::Table.new($framies, [$score_counter, $score_totaller])
